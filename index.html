@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Am I Ready? Readiness diagnostics for students moving into their next class or course.">
+  <title>Am I Ready? Readiness Diagnostics</title>
+  <style>
+    :root {
+      --bg:#f6f8fb;
+      --panel:#ffffff;
+      --text:#172033;
+      --muted:#667085;
+      --border:#d9dee8;
+      --accent:#3559d8;
+      --accent-dark:#24304f;
+      --accent-soft:#edf1ff;
+      --shadow:0 8px 28px rgba(16,24,40,.08);
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+    button, select, input { font:inherit; }
+    a { color:inherit; }
+    .app { max-width:1060px; margin:0 auto; padding:24px 16px 56px; }
+    .hero {
+      background:linear-gradient(135deg,#24304f,#344f91);
+      color:white;
+      border-radius:20px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+    .eyebrow {
+      margin:0 0 8px;
+      font-size:.88rem;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#dce4ff;
+    }
+    .hero h1 {
+      margin:0 0 10px;
+      font-size:clamp(2rem,5vw,3.35rem);
+      line-height:1.05;
+    }
+    .hero p { margin:0; max-width:76ch; color:#e6ebff; font-size:1.05rem; }
+    .panel {
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-top:18px;
+    }
+    .intro-row {
+      display:grid;
+      grid-template-columns:1.35fr .65fr;
+      gap:18px;
+      align-items:end;
+    }
+    .intro-row h2 { margin:0 0 6px; }
+    .intro-row p { margin:0; color:var(--muted); }
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    select, input[type="search"] {
+      width:100%;
+      min-height:44px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:white;
+      color:var(--text);
+      padding:10px 12px;
+    }
+    select:focus-visible, input:focus-visible, a:focus-visible {
+      outline:3px solid rgba(53,89,216,.23);
+      outline-offset:2px;
+    }
+    .toolbar {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:16px;
+    }
+    .cards {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+    .card {
+      display:flex;
+      flex-direction:column;
+      min-height:250px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      background:white;
+    }
+    .card:hover { border-color:#b6c2ef; box-shadow:0 6px 20px rgba(16,24,40,.07); }
+    .card-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      border:1px solid #cfd7fb;
+      background:var(--accent-soft);
+      color:#2947b5;
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:.82rem;
+      font-weight:800;
+    }
+    .transition { margin:12px 0 3px; color:var(--muted); font-size:.9rem; font-weight:700; }
+    .card h3 { margin:0 0 8px; font-size:1.25rem; line-height:1.25; }
+    .card p { margin:0; color:var(--muted); }
+    .meta { margin-top:12px; font-size:.9rem; color:var(--muted); }
+    .launch {
+      margin-top:auto;
+      padding-top:18px;
+    }
+    .launch a {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      width:100%;
+      border-radius:10px;
+      background:var(--accent);
+      color:white;
+      text-decoration:none;
+      font-weight:800;
+      padding:10px 14px;
+    }
+    .launch a:hover { background:#2949bd; }
+    .empty {
+      border:1px dashed var(--border);
+      border-radius:14px;
+      padding:24px;
+      color:var(--muted);
+      text-align:center;
+      grid-column:1/-1;
+    }
+    .how-it-works {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .step { border:1px solid var(--border); border-radius:12px; padding:14px; }
+    .step strong { display:block; margin-bottom:4px; }
+    .small { font-size:.9rem; }
+    .muted { color:var(--muted); }
+    footer { text-align:center; color:var(--muted); font-size:.86rem; padding-top:22px; }
+    @media(max-width:760px) {
+      .intro-row, .cards, .how-it-works, .toolbar { grid-template-columns:1fr; }
+      .hero, .panel { border-radius:14px; }
+      .hero { padding:24px; }
+    }
+  </style>
+</head>
+<body>
+<main class="app">
+  <section class="hero">
+    <p class="eyebrow">Readiness diagnostics</p>
+    <h1>Am I Ready?</h1>
+    <p>Choose the class or course you are moving into. Each diagnostic checks the prerequisite that should make the transition easier and highlights areas worth reviewing.</p>
+  </section>
+
+  <section class="panel">
+    <div class="intro-row">
+      <div>
+        <h2>Choose your diagnostic</h2>
+        <p>Select the transition that matches you.</p>
+      </div>
+      <div>
+        <label for="stageFilter">Current class / stage</label>
+        <select id="stageFilter">
+          <option value="all">All available diagnostics</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div>
+        <label for="destinationFilter">Moving into</label>
+        <select id="destinationFilter">
+          <option value="all">Any next class / course</option>
+        </select>
+      </div>
+      <div>
+        <label for="searchBox">Search</label>
+        <input id="searchBox" type="search" placeholder="e.g. Grade 9, IB, AA HL">
+      </div>
+    </div>
+
+    <div class="cards" id="diagnosticCards" aria-live="polite"></div>
+  </section>
+
+  <section class="panel">
+    <h2 style="margin-top:0">How to use these diagnostics</h2>
+    <div class="how-it-works">
+      <div class="step"><strong>1. Choose the transition</strong><span class="small muted">Pick the class or course you are about to start.</span></div>
+      <div class="step"><strong>2. Complete the diagnostic</strong><span class="small muted">Work independently so the result reflects genuine strengths and gaps.</span></div>
+      <div class="step"><strong>3. Use the report</strong><span class="small muted">Share and review the results with a teacher or tutor.</span></div>
+    </div>
+  </section>
+
+  <footer>Am I Ready? Readiness Diagnostics</footer>
+</main>
+
+<script src="diagnostics.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  const diagnostics = Array.isArray(window.AM_I_READY_DIAGNOSTICS)
+    ? window.AM_I_READY_DIAGNOSTICS
+    : [];
+
+  const cards = document.getElementById('diagnosticCards');
+  const stageFilter = document.getElementById('stageFilter');
+  const destinationFilter = document.getElementById('destinationFilter');
+  const searchBox = document.getElementById('searchBox');
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>'"]/g, c => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;', "'":'&#39;', '"':'&quot;'
+    }[c]));
+  }
+
+  function fillFilter(select, values) {
+    [...new Set(values)].sort((a,b) => a.localeCompare(b, undefined, {numeric:true})).forEach(value => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
+
+  function render() {
+    const stage = stageFilter.value;
+    const destination = destinationFilter.value;
+    const query = searchBox.value.trim().toLowerCase();
+
+    const filtered = diagnostics.filter(item => {
+      const stageMatch = stage === 'all' || item.current === stage;
+      const destinationMatch = destination === 'all' || item.next === destination;
+      const text = `${item.current} ${item.next} ${item.title} ${item.description} ${item.audience}`.toLowerCase();
+      const searchMatch = !query || text.includes(query);
+      return stageMatch && destinationMatch && searchMatch;
+    });
+
+    if (!filtered.length) {
+      cards.innerHTML = '<div class="empty"><strong>No matching diagnostic yet.</strong><br>Try a different filter, or check back when more transitions have been added.</div>';
+      return;
+    }
+
+    cards.innerHTML = filtered.map(item => `
+      <article class="card">
+        <div class="card-top">
+          <span class="pill">${escapeHtml(item.audience)}</span>
+          <span class="small muted">${escapeHtml(item.duration)}</span>
+        </div>
+        <div class="transition">${escapeHtml(item.current)} → ${escapeHtml(item.next)}</div>
+        <h3>${escapeHtml(item.title)}</h3>
+        <p>${escapeHtml(item.description)}</p>
+        <div class="meta">Diagnostic for students preparing for the next academic year.</div>
+        <div class="launch"><a href="${escapeHtml(item.href)}">Open diagnostic</a></div>
+      </article>
+    `).join('');
+  }
+
+  fillFilter(stageFilter, diagnostics.map(d => d.current));
+  fillFilter(destinationFilter, diagnostics.map(d => d.next));
+
+  stageFilter.addEventListener('change', render);
+  destinationFilter.addEventListener('change', render);
+  searchBox.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>
