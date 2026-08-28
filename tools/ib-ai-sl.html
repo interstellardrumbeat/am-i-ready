@@ -534,7 +534,7 @@
   <main class="app" id="app">
    <section class="hero">
     <h1>
-     Am I Ready? - IB Mathematics AI SL Prerequisite Readiness Diagnostic
+     Am I Ready? - IB Mathematics AI SL Readiness Diagnostic
     </h1>
     <p>
      A diagnostic tool created by Dr. Domenico Prudenzano to check the prerequisite mathematics a student should have before starting IB Diploma Mathematics: Applications and Interpretation SL.
@@ -1226,7 +1226,7 @@
         returnToQuestions();
       }
       function readinessBand(pct) {
-        if (pct >= 85) return ['Strong AI SL prerequisite readiness','The prior-learning foundation looks secure across number, algebra, graphs, geometry, data and probability. The student can move to calculator fluency and the optional AI SL bridge topics.'];
+        if (pct >= 85) return ['Strong AI SL readiness','The prior-learning foundation looks secure across number, algebra, graphs, geometry, data and probability. The student can move to calculator fluency and the optional AI SL bridge topics.'];
         if (pct >= 70) return ['Generally ready, with gaps to patch','The student appears ready to start AI SL, but the weakest prerequisite area should be consolidated so it does not interfere with new course content.'];
         if (pct >= 55) return ['Notable prerequisite gaps','Several assumed skills need targeted review. These gaps are worth addressing before or during the opening weeks of AI SL.'];
         return ['Foundation rebuilding recommended','A number of assumed pre-DP skills are not yet secure. Prioritise core numeracy, algebra, geometry and basic data/probability before relying heavily on new AI SL methods.'];
@@ -1318,7 +1318,7 @@
       function buildReport(student, classNote, r, skillRows, band) {
         const priorities = skillRows.filter(s=>s.pct<85).slice(0,4);
         const lines = [
-        'IB Mathematics AI SL Prerequisite Readiness Diagnostic',
+        'IB Mathematics AI SL Readiness Diagnostic',
         `Student: ${student}`,
         classNote ? `Extra notes: ${classNote}` : '',
         `Core score: ${r.earned}/${r.max} (${r.pct}%)`,
@@ -1345,7 +1345,7 @@
         const a = document.createElement('a');
         const safeName = (el('studentName').value.trim() || 'student').replace(/[^a-z0-9_-]+/gi,'_');
         a.href = url;
-        a.download = `AI_SL_prerequisite_readiness_${safeName}.txt`;
+        a.download = `AI_SL_readiness_${safeName}.txt`;
         document.body.appendChild(a);
         a.click();
         a.remove();
