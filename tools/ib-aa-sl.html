@@ -843,32 +843,32 @@ These five questions are not part of the 50-mark core score. They sample materia
       {
         id:'A12', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'number', prompt:'Evaluate <span class="math">(1.2 × 10³) ÷ (4.8 × 10¹)</span>.', correct:25, help:'Enter a number only.'
       },
-      {
-        id:'B1', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'mcq', prompt:'Find the equation of the line through <span class="math">(−2, 5)</span> and <span class="math">(4, −1)</span>.', options:['y = x + 3','y = −x + 3','y = −x − 3','y = x − 3'], correct:1
+      { 
+       id:'B1', section:'B - Functions, geometry & data',  marks:2,  calc:false,  tags:['Functions & graphs'],  type:'mcq',  prompt:'The table shows a mapping from <span class="math">x</span> to <span class="math">y</span>:<br><span class="math">x: −1, 0, 2</span><br><span class="math">y: 3, 5, 9</span><br>Which rule matches all three pairs?',  options:['y = x + 4','y = 2x + 5','y = 3x + 5','y = 2x + 3'],  correct:1
+      },
+      { 
+       id:'B2',  section:'B - Functions, geometry & data',  marks:2,  calc:false,  tags:['Trigonometry'],  type:'number',  prompt:'A right triangle has shorter sides of lengths <span class="math">6</span> and <span class="math">8</span>. Find the length of the hypotenuse.',  correct:10, help:'Enter the length.'
+      },
+      { 
+       id:'B3',section:'B - Functions, geometry & data',marks:2,calc:false,tags:['Coordinate geometry'],type:'number', prompt:'Find the distance between the points <span class="math">A(1, 2)</span> and <span class="math">B(7, 10)</span>.', correct:10,  help:'Enter the distance.'
+      },
+      { 
+       id:'B4',  section:'B - Functions, geometry & data', marks:2,calc:false, tags:['Trigonometry'],type:'mcq', prompt:'Point B is on a bearing of <span class="math">135°</span> from point A. Which compass direction is B from A?', options:['north-east','south-east','south-west','north-west'],  correct:1
+      },
+      { 
+       id:'B5',section:'B - Functions, geometry & data',marks:2,calc:false,tags:['Statistics & data'], type:'pair', prompt:'For the data <span class="math">4, 6, 8, 8, 9</span>, find the mean and the range.',correct:[7,5], help:'Enter mean, range in that order.'
       },
       {
-        id:'B2', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'mcq', prompt:'A line has slope <span class="math">2/3</span>. What is the slope of a line perpendicular to it?', options:['−2/3','3/2','−3/2','2/3'], correct:2
+        id:'B6', section:'B - Functions, geometry & data', marks:2, calc:false, tags:['Coordinate geometry'], type:'pair', prompt:'Find the midpoint of the line segment joining <span class="math">(−2, 3)</span> and <span class="math">(4, 7)</span>.', correct:[1,5], help:'Enter x, y for the midpoint, for example: 2, −5'
       },
       {
-        id:'B3', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs','Algebraic fluency'], type:'mcq', prompt:'Given <span class="math">f(x) = 2x² − 3</span>, find <span class="math">f(a + 1)</span>.', options:['2a² − 1','2a² + 2a − 1','2a² + 4a − 1','2a² + 4a + 5'], correct:2
+        id:'B7', section:'B - Functions, geometry & data', marks:2, calc:false, tags:['Trigonometry'], type:'mcq', prompt:'In a right triangle, relative to angle <span class="math">θ</span>, the opposite side is 3 and the hypotenuse is 5. Find <span class="math">sin θ</span>.', options:['3/4','4/5','3/5','5/3'], correct:2
       },
       {
-        id:'B4', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs','Equations & inequalities'], type:'mcq', prompt:'What is the real domain of <span class="math">f(x) = √(5 − 2x)</span>?', options:['x ≥ 5/2','x ≤ 5/2','x < 5','all real x'], correct:1
+        id:'B8', section:'B - Functions, geometry & data', marks:2, calc:false, tags:['Notation & sets'], type:'mcq', prompt:'Which interval represents <span class="math">−3 ≤ x &lt; 4</span>?', options:['(−3, 4)','[−3, 4)','(−3, 4]','[−3, 4]'], correct:1
       },
       {
-        id:'B5', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs'], type:'mcq', prompt:'Starting from <span class="math">y = f(x)</span>, what transformation gives <span class="math">y = f(x − 3) + 2</span>?', options:['3 left, 2 up','3 right, 2 up','3 right, 2 down','2 right, 3 up'], correct:1
-      },
-      {
-        id:'B6', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'pair', prompt:'Find the midpoint of the line segment joining <span class="math">(−2, 3)</span> and <span class="math">(4, 7)</span>.', correct:[1,5], help:'Enter x, y for the midpoint, for example: 2, −5'
-      },
-      {
-        id:'B7', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Trigonometry'], type:'mcq', prompt:'In a right triangle, relative to angle <span class="math">θ</span>, the opposite side is 3 and the hypotenuse is 5. Find <span class="math">sin θ</span>.', options:['3/4','4/5','3/5','5/3'], correct:2
-      },
-      {
-        id:'B8', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Notation & sets'], type:'mcq', prompt:'Which interval represents <span class="math">−3 ≤ x &lt; 4</span>?', options:['(−3, 4)','[−3, 4)','(−3, 4]','[−3, 4]'], correct:1
-      },
-      {
-        id:'B9', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Probability & sets'], type:'number', prompt:'For two sets <span class="math">A</span> and <span class="math">B</span>, <span class="math">n(A)=18</span>, <span class="math">n(B)=15</span> and <span class="math">n(A∩B)=7</span>. Find <span class="math">n(A∪B)</span>.', correct:26, help:'Enter a whole number.'
+        id:'B9', section:'B - Functions, geometry & data', marks:2, calc:false, tags:['Probability & sets'], type:'number', prompt:'For two sets <span class="math">A</span> and <span class="math">B</span>, <span class="math">n(A)=18</span>, <span class="math">n(B)=15</span> and <span class="math">n(A∩B)=7</span>. Find <span class="math">n(A∪B)</span>.', correct:26, help:'Enter a whole number.'
       },
       {
         id:'C1', section:'C - Transfer & modelling', marks:3, calc:false, tags:['Reasoning & modelling','Algebraic fluency','Equations & inequalities'], type:'number', prompt:'A minibus hire costs a fixed fee of 180 plus 12 per student. The total cost is 540. How many students are travelling?', correct:30, help:'Enter the number of students.'
