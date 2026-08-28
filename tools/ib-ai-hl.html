@@ -1318,7 +1318,7 @@
       function buildReport(student, classNote, r, skillRows, band) {
         const priorities = skillRows.filter(s=>s.pct<85).slice(0,4);
         const lines = [
-        'IB Mathematics AI HL Prerequisite Readiness Diagnostic',
+        'IB Mathematics AI HL Readiness Diagnostic',
         `Student: ${student}`,
         classNote ? `Extra notes: ${classNote}` : '',
         `Core score: ${r.earned}/${r.max} (${r.pct}%)`,
@@ -1345,7 +1345,7 @@
         const a = document.createElement('a');
         const safeName = (el('studentName').value.trim() || 'student').replace(/[^a-z0-9_-]+/gi,'_');
         a.href = url;
-        a.download = `AI_HL_prerequisite_readiness_${safeName}.txt`;
+        a.download = `AI_HL_readiness_${safeName}.txt`;
         document.body.appendChild(a);
         a.click();
         a.remove();
