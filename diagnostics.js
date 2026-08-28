@@ -20,5 +20,15 @@ window.AM_I_READY_DIAGNOSTICS = [
     audience: 'IB Diploma preparation',
     duration: '60 minutes',
     href: 'tools/ib-aa-hl.html'
+  },
+  {
+    id: 'ib-aa-sl',
+    current: 'Grade 10 / MYP 5 / GCSE',
+    next: 'IB Diploma',
+    title: 'IB Mathematics AA SL Readiness',
+    description: 'Checks prerequisite number, algebra, equations, functions, graphs and related skills before beginning IB Mathematics: Analysis and Approaches SL.',
+    audience: 'IB Diploma preparation',
+    duration: '60 minutes',
+    href: 'tools/ib-aa-sl.html'
   }
 ];
