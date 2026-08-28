@@ -1,4 +1,4 @@
-# Am I Ready? — Readiness Diagnostics for the new academic year
+# Am I Ready? - Readiness Diagnostics for the new academic year
 
 **Am I Ready?** is a collection of browser-based diagnostic tools designed to help students check whether they have the prerequisite needed before starting a new class or course (currently only for maths classes).
 
