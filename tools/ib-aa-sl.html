@@ -1,0 +1,1420 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Am I Ready? - IB Mathematics AA SL Readiness Diagnostic tool
+  </title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --panel: #ffffff;
+      --text: #18202a;
+      --muted: #667085;
+      --border: #d9dee8;
+      --accent: #1d4ed8;
+      --accent-soft: #eaf0ff;
+      --good: #16794a;
+      --good-soft: #e9f7ef;
+      --warn: #9a6700;
+      --warn-soft: #fff6d9;
+      --bad: #b42318;
+      --bad-soft: #fff0ee;
+      --shadow: 0 8px 28px rgba(16,24,40,.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 3px solid rgba(29,78,216,.25);
+      outline-offset: 2px;
+    }
+
+    .app {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #152238, #243b64);
+      color: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.6rem, 4vw, 2.45rem);
+      line-height: 1.12;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #dce6fb;
+      max-width: 72ch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: .9rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: #fff;
+      font-size: .9rem;
+    }
+
+    .notice {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin: 16px 0;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 650px) {
+      .grid2 {
+        grid-template-columns: 1fr;
+      }
+
+      .hero, .panel {
+        border-radius: 14px;
+      }
+
+    }
+
+    label.block {
+      display: block;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 12px;
+      background: white;
+      color: var(--text);
+      min-height: 44px;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 10px;
+      min-height: 44px;
+      padding: 10px 15px;
+      font-weight: 700;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .actions .left, .actions .right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .testbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .progress-track {
+      height: 10px;
+      background: #e9edf4;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width .2s ease;
+    }
+
+    .timer {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .timer.warn {
+      color: var(--warn);
+    }
+
+    .timer.over {
+      color: var(--bad);
+    }
+
+    .qtop {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .qnum {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .question {
+      margin: 12px 0 18px;
+      font-size: 1.18rem;
+      font-weight: 720;
+      line-height: 1.45;
+    }
+
+    .math {
+      font-family: "Times New Roman", Georgia, serif;
+      font-size: 1.08em;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .option {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      cursor: pointer;
+      background: white;
+    }
+
+    .option:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .option input {
+      margin-top: 4px;
+    }
+
+    .confidence {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .confidence label {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 11px;
+      cursor: pointer;
+    }
+
+    .confidence label:has(input:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .confidence input {
+      margin-right: 6px;
+    }
+
+    details {
+      margin-top: 16px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px,1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .review-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 7px;
+      text-align: center;
+      background: white;
+    }
+
+    .review-item.bad {
+      background: var(--bad-soft);
+      border-color: #f5b8b2;
+    }
+
+    .review-item.flag {
+      background: var(--warn-soft);
+      border-color: var(--warn);
+      box-shadow: inset 0 0 0 2px var(--warn);
+    }
+
+    .review-item.flag strong {
+      color: var(--warn);
+    }
+
+    .flag-badge {
+      display: inline-block;
+      margin-top: 4px;
+      color: var(--warn);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .scorebox {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 620px) {
+      .scorebox {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    .score-ring {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--accent) var(--pct,0%), #e8ecf3 0);
+      position: relative;
+    }
+
+    .score-ring::after {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .score-ring strong {
+      position: relative;
+      z-index: 1;
+      font-size: 2rem;
+    }
+
+    .band {
+      font-weight: 850;
+      font-size: 1.25rem;
+      margin: 0 0 4px;
+    }
+
+    .skill-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .skill-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .skill-track {
+      height: 8px;
+      background: #edf0f5;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .skill-fill {
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .status-secure {
+      color: var(--good);
+    }
+
+    .status-consolidate {
+      color: var(--warn);
+    }
+
+    .status-priority {
+      color: var(--bad);
+    }
+
+    .callout-good, .callout-warn, .callout-bad {
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .callout-good {
+      background: var(--good-soft);
+    }
+
+    .callout-warn {
+      background: var(--warn-soft);
+    }
+
+    .callout-bad {
+      background: var(--bad-soft);
+    }
+
+    .details-table-wrap {
+      overflow-x: auto;
+      margin-top: 12px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 720px;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-size: .88rem;
+      color: var(--muted);
+    }
+
+    .correct {
+      color: var(--good);
+      font-weight: 800;
+    }
+
+    .incorrect {
+      color: var(--bad);
+      font-weight: 800;
+    }
+
+    .bridge {
+      margin-top: 18px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .bridge-q {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px;
+      margin: 12px 0;
+    }
+
+    .source-note {
+      margin-top: 18px;
+      font-size: .84rem;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+ </head>
+ <body>
+  <main class="app" id="app">
+   <section class="hero">
+    <h1>
+     Am I Ready? - IB Mathematics AA SL Readiness Diagnostic
+    </h1>
+    <p>
+     A diagnostic tool created by Dr. Domenico Prudenzano for the transition from MYP/GCSE-level mathematics into IB Diploma Mathematics: Analysis and Approaches SL.
+    </p>
+   </section>
+   <section class="panel" id="startPanel">
+    <h2 style="margin-top:0">
+     Before you begin
+    </h2>
+    <div class="pill-row">
+     <span class="pill">
+      60 minutes
+     </span>
+     <span class="pill">
+      24 core questions
+     </span>
+     <span class="pill">
+      50 core marks
+     </span>
+     <span class="pill">
+      Confidence diagnostic
+     </span>
+    </div>
+    <div class="notice">
+     <strong>
+      Purpose:
+     </strong>
+     this is not an IB exam and is not intended to predict an IB grade. It is designed to identify prerequisite strengths, gaps, fluency issues and misconceptions before AA SL begins. For a better analysis, discuss your results with a teacher or a tutor.
+    </div>
+    <ul>
+     <li>
+      <strong>
+       Do not use a calculator!
+      </strong>
+      .
+     </li>
+     <li>
+      For each question, give a final answer and rate your confidence as
+      <strong>
+       low, medium or high
+      </strong>
+      .
+     </li>
+     <li>
+      Use the optional working box if you want your teacher or tutor to see your method and if you feel you have enough time.
+     </li>
+     <li>
+      If you are unsure, do not search for the answer. A genuine wrong answer is useful information.
+     </li>
+    </ul>
+    <div class="grid2" style="margin-top:16px">
+     <div>
+      <label class="block" for="studentName">
+       Student name (optional)
+      </label>
+      <input autocomplete="name" id="studentName" maxlength="80" placeholder="Name" type="text"/>
+     </div>
+     <div>
+      <label class="block" for="extraCode">
+       Extra notes (optional)
+      </label>
+      <input id="extraCode" maxlength="80" placeholder="e.g. Summer diagnostic" type="text"/>
+     </div>
+    </div>
+    <div class="actions">
+     <div class="small muted">
+      Answers remain in this page and disappear after reloading. Nothing is stored online or sent to third parties.
+     </div>
+     <button class="btn btn-primary" id="startBtn" type="button">
+      Start diagnostic
+     </button>
+    </div>
+   </section>
+   <section aria-live="polite" class="panel hidden" id="testPanel">
+    <div class="testbar">
+     <div>
+      <div aria-label="Test progress" class="progress-track">
+       <div class="progress-fill" id="progressFill">
+       </div>
+      </div>
+      <div class="small muted" id="progressText" style="margin-top:6px">
+      </div>
+     </div>
+     <div class="timer" id="timer">
+      60:00
+     </div>
+    </div>
+    <div class="notice hidden" id="flagReviewBanner">
+    </div>
+    <div class="qtop">
+     <div>
+      <div class="section-label" id="sectionLabel">
+      </div>
+      <div class="qnum" id="questionNumber">
+      </div>
+     </div>
+     <div class="pill-row" style="margin:0">
+      <span class="pill" id="marksPill">
+      </span>
+      <span class="pill" id="calcPill">
+      </span>
+     </div>
+    </div>
+    <div class="question" id="questionPrompt">
+    </div>
+    <div id="answerArea">
+    </div>
+    <div class="small muted" id="formatHelp" style="margin-top:8px">
+    </div>
+    <div style="margin-top:20px">
+     <div class="block" style="font-weight:700;margin-bottom:8px">
+      How confident are you?
+     </div>
+     <div class="confidence" id="confidenceArea">
+      <label>
+       <input name="confidence" type="radio" value="low"/>
+       Low
+      </label>
+      <label>
+       <input name="confidence" type="radio" value="medium"/>
+       Medium
+      </label>
+      <label>
+       <input name="confidence" type="radio" value="high"/>
+       High
+      </label>
+     </div>
+    </div>
+    <details>
+     <summary>
+      Optional working / reasoning
+     </summary>
+     <label class="block small" for="working" style="margin-top:10px">
+      Your working is not automatically marked, but it can help your teacher or tutor diagnose the cause of an error.
+     </label>
+     <textarea id="working" maxlength="1800" placeholder="Show your method here if useful..."></textarea>
+    </details>
+    <div class="actions">
+     <div class="left">
+      <button class="btn btn-secondary" id="backBtn" type="button">
+       Back
+      </button>
+      <label class="pill">
+       <input id="flagBox" type="checkbox"/>
+       🚩 Flag for review
+      </label>
+     </div>
+     <div class="right">
+      <button class="btn btn-primary" id="nextBtn" type="button">
+       Next
+      </button>
+     </div>
+    </div>
+   </section>
+   <section class="panel hidden" id="reviewPanel">
+    <h2 style="margin-top:0">
+     Review before submitting
+    </h2>
+    <p id="reviewSummary">
+    </p>
+    <div class="review-grid" id="reviewGrid">
+    </div>
+    <p class="small muted">
+     Red = unanswered. Gold cards with a 🚩 are flagged for review. You can submit with unanswered questions; they will score zero.
+    </p>
+    <div class="actions">
+     <div class="left">
+      <button class="btn btn-secondary" id="returnBtn" type="button">
+       Return to questions
+      </button>
+     </div>
+     <div class="right">
+      <button class="btn btn-ghost" id="reviewFlaggedBtn" type="button">
+       🚩 Review flagged questions
+      </button>
+      <button class="btn btn-ghost" id="firstUnansweredBtn" type="button">
+       Go to first unanswered
+      </button>
+      <button class="btn btn-primary" id="submitBtn" type="button">
+       Submit diagnostic
+      </button>
+     </div>
+    </div>
+   </section>
+   <section aria-live="polite" class="panel hidden" id="resultsPanel">
+    <h2 style="margin-top:0">
+     Diagnostic results
+    </h2>
+    <div class="scorebox">
+     <div class="score-ring" id="scoreRing">
+      <strong id="scorePct">
+       0%
+      </strong>
+     </div>
+     <div>
+      <p class="band" id="readinessBand">
+      </p>
+      <div id="scoreLine">
+      </div>
+      <p class="muted" id="bandExplanation">
+      </p>
+     </div>
+    </div>
+    <div id="misconceptionCallout">
+    </div>
+    <h3>
+     Skill profile
+    </h3>
+    <div class="skill-list" id="skillList">
+    </div>
+    <h3>
+     Suggested tutoring focus
+    </h3>
+    <div id="focusList">
+    </div>
+    <details>
+     <summary>
+      Question-by-question detail
+     </summary>
+     <div class="details-table-wrap">
+      <table id="detailsTable">
+      </table>
+     </div>
+    </details>
+    <details>
+     <summary>
+      Report / shareable summary
+     </summary>
+     <p class="small muted">
+      You can select and copy this text, or download it as a .txt file.
+     </p>
+     <textarea id="reportText" readonly=""></textarea>
+     <div class="actions" style="justify-content:flex-start">
+      <button class="btn btn-secondary" id="downloadReportBtn" type="button">
+       Download report
+      </button>
+     </div>
+    </details>
+    <div class="bridge">
+     <h3 style="margin-top:0">
+      Optional bridge probe
+     </h3>
+     <p class="muted">
+      These five questions are
+      <strong>
+       not part of the 50-mark core score
+      </strong>
+      . They sample topics the student may meet early in AA SL. They should be treated as useful prior exposure rather than required AA SL readiness.
+     </p>
+     <button class="btn btn-secondary" id="showBridgeBtn" type="button">
+      Open bridge probe
+     </button>
+     <div class="hidden" id="bridgeArea">
+     </div>
+    </div>
+    <div class="actions">
+     <div class="left">
+     </div>
+     <div class="right">
+      <button class="btn btn-ghost" id="restartBtn" type="button">
+       Start a new attempt
+      </button>
+     </div>
+    </div>
+    <p class="source-note">
+     Design based on official IB Mathematics: Analysis and Approaches prior-learning and course expectations. All diagnostic questions here are newly written and are not copied from any resource. Official IB guide:
+     <a href="https://ibo.org/globalassets/new-structure/university-admission/pdfs/dp-mathematics-analysis-and-approaches-guide-en.pdf" rel="noopener" target="_blank">
+      Mathematics: analysis and approaches guide
+     </a>
+     .
+    </p>
+   </section>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const questions = [
+      {
+        id:'A1', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'number', prompt:'Evaluate <span class="math">2<sup>3</sup> × 2<sup>4</sup> ÷ 2<sup>5</sup></span>.', correct:4, help:'Enter a number.'
+      },
+      {
+        id:'A2', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'mcq', prompt:'Write <span class="math">(6 × 10<sup>7</sup>)(3 × 10<sup>−4</sup>)</span> in standard scientific notation.', options:['1.8 × 10³','1.8 × 10⁴','18 × 10⁴','1.8 × 10¹¹'], correct:1
+      },
+      {
+        id:'A3', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'mcq', prompt:'Simplify <span class="math">√72</span>.', options:['3√8','6√2','8√3','12√2'], correct:1
+      },
+      {
+        id:'A4', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'mcq', prompt:'Calculate <span class="math">3/4 + 5/6</span>. Give your answer in simplest form.', options:['19/12','8/10','7/12','13/24'], correct:0
+      },
+      {
+        id:'A5', section:'A - Core fluency', marks:2, calc:false, tags:['Algebraic fluency'], type:'mcq', prompt:'Expand and simplify <span class="math">(2x − 3)(x + 4)</span>.', options:['2x² + 5x − 12','2x² + 11x − 12','2x² − 5x − 12','2x² + 5x + 12'], correct:0
+      },
+      {
+        id:'A6', section:'A - Core fluency', marks:2, calc:false, tags:['Algebraic fluency'], type:'mcq', prompt:'Factorise completely <span class="math">x² + 5x + 6</span>.', options:['(x + 1)(x + 6)','(x + 2)(x + 3)','(x − 2)(x − 3)','(x + 5)(x + 1)'], correct:1
+      },
+      {
+        id:'A7', section:'A - Core fluency', marks:2, calc:false, tags:['Algebraic fluency'], type:'mcq', prompt:'Simplify <span class="math">6x²y/(3xy)</span>, where <span class="math">x ≠ 0</span> and <span class="math">y ≠ 0</span>.', options:['2x','2xy','3x','2x²'], correct:0
+      },
+      {
+        id:'A8', section:'A - Core fluency', marks:2, calc:false, tags:['Algebraic fluency'], type:'mcq', prompt:'Given <span class="math">y = (3x − 2)/5</span>, make <span class="math">x</span> the subject.', options:['x = (5y + 2)/3','x = (5y − 2)/3','x = (3y + 2)/5','x = 5y/3 − 2'], correct:0
+      },
+      {
+        id:'A9', section:'A - Core fluency', marks:2, calc:false, tags:['Equations & inequalities','Algebraic fluency'], type:'number', prompt:'Solve <span class="math">4(2x − 3) = 20</span>.', correct:4, help:'Enter the value of x.'
+      },
+      {
+        id:'A10', section:'A - Core fluency', marks:2, calc:false, tags:['Equations & inequalities'], type:'mcq', prompt:'Solve <span class="math">3x − 5 ≤ 10</span>.', options:['x ≤ 5','x ≥ 5','x ≤ 15','x ≥ 15'], correct:0
+      },
+      {
+        id:'A11', section:'A - Core fluency', marks:2, calc:false, tags:['Equations & inequalities','Algebraic fluency'], type:'pair', prompt:'Solve the simultaneous equations <span class="math">3x + 2y = 13</span> and <span class="math">x − y = 1</span>.', correct:[3,2], help:'Enter x, y in that order, for example: 4, −1'
+      },
+      {
+        id:'A12', section:'A - Core fluency', marks:2, calc:false, tags:['Number, fractions & indices'], type:'number', prompt:'Evaluate <span class="math">(1.2 × 10³) ÷ (4.8 × 10¹)</span>.', correct:25, help:'Enter a number only.'
+      },
+      {
+        id:'B1', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'mcq', prompt:'Find the equation of the line through <span class="math">(−2, 5)</span> and <span class="math">(4, −1)</span>.', options:['y = x + 3','y = −x + 3','y = −x − 3','y = x − 3'], correct:1
+      },
+      {
+        id:'B2', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'mcq', prompt:'A line has slope <span class="math">2/3</span>. What is the slope of a line perpendicular to it?', options:['−2/3','3/2','−3/2','2/3'], correct:2
+      },
+      {
+        id:'B3', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs','Algebraic fluency'], type:'mcq', prompt:'Given <span class="math">f(x) = 2x² − 3</span>, find <span class="math">f(a + 1)</span>.', options:['2a² − 1','2a² + 2a − 1','2a² + 4a − 1','2a² + 4a + 5'], correct:2
+      },
+      {
+        id:'B4', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs','Equations & inequalities'], type:'mcq', prompt:'What is the real domain of <span class="math">f(x) = √(5 − 2x)</span>?', options:['x ≥ 5/2','x ≤ 5/2','x < 5','all real x'], correct:1
+      },
+      {
+        id:'B5', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Functions & graphs'], type:'mcq', prompt:'Starting from <span class="math">y = f(x)</span>, what transformation gives <span class="math">y = f(x − 3) + 2</span>?', options:['3 left, 2 up','3 right, 2 up','3 right, 2 down','2 right, 3 up'], correct:1
+      },
+      {
+        id:'B6', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Coordinate geometry'], type:'pair', prompt:'Find the midpoint of the line segment joining <span class="math">(−2, 3)</span> and <span class="math">(4, 7)</span>.', correct:[1,5], help:'Enter x, y for the midpoint, for example: 2, −5'
+      },
+      {
+        id:'B7', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Trigonometry'], type:'mcq', prompt:'In a right triangle, relative to angle <span class="math">θ</span>, the opposite side is 3 and the hypotenuse is 5. Find <span class="math">sin θ</span>.', options:['3/4','4/5','3/5','5/3'], correct:2
+      },
+      {
+        id:'B8', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Notation & sets'], type:'mcq', prompt:'Which interval represents <span class="math">−3 ≤ x &lt; 4</span>?', options:['(−3, 4)','[−3, 4)','(−3, 4]','[−3, 4]'], correct:1
+      },
+      {
+        id:'B9', section:'B - Functions, graphs & trigonometry', marks:2, calc:false, tags:['Probability & sets'], type:'number', prompt:'For two sets <span class="math">A</span> and <span class="math">B</span>, <span class="math">n(A)=18</span>, <span class="math">n(B)=15</span> and <span class="math">n(A∩B)=7</span>. Find <span class="math">n(A∪B)</span>.', correct:26, help:'Enter a whole number.'
+      },
+      {
+        id:'C1', section:'C - Transfer & modelling', marks:3, calc:false, tags:['Reasoning & modelling','Algebraic fluency','Equations & inequalities'], type:'number', prompt:'A minibus hire costs a fixed fee of 180 plus 12 per student. The total cost is 540. How many students are travelling?', correct:30, help:'Enter the number of students.'
+      },
+      {
+        id:'C2', section:'C - Transfer & modelling', marks:3, calc:false, tags:['Reasoning & modelling','Algebraic fluency','Equations & inequalities'], type:'pair', prompt:'A rectangle has perimeter 34 cm. Its length is 3 cm greater than its width. Find the length and width.', correct:[10,7], help:'Enter length, width in that order, for example: 8, 5'
+      },
+      {
+        id:'C3', section:'C - Transfer & modelling', marks:2, calc:false, tags:['Reasoning & modelling','Number, fractions & indices'], type:'number', prompt:'After a 20% discount, a jacket costs 72. Find its original price.', correct:90, help:'Enter the original price.'
+      }
+      ];
+      const bridgeQuestions = [
+      {
+        id:'E1', prompt:'Arithmetic sequence: 7, 11, 15, … Find the 20th term.', type:'number', correct:83, skill:'Sequences'
+      },
+      {
+        id:'E2', prompt:'Geometric sequence: 3, 6, 12, … Find the sum of the first 8 terms.', type:'number', correct:765, skill:'Sequences'
+      },
+      {
+        id:'E3', prompt:'Which exact value solves log₁₀(x) = 2.5?', type:'mcq', options:['25','100√10','250','10√5'], correct:1, skill:'Exponentials & logarithms'
+      },
+      {
+        id:'E4', prompt:'Solve x² − 5x + 6 = 0.', type:'roots', correct:[2,3], skill:'Quadratic techniques'
+      },
+      {
+        id:'E5', prompt:'If you have met differentiation: find d/dx of 3x² − 4x + 1.', type:'mcq', options:['3x − 4','6x − 4','6x + 1','3x² − 4'], correct:1, skill:'Calculus exposure'
+      }
+      ];
+      const skillDescriptions = {
+        'Algebraic fluency':'Expansion, factorisation, simplification, rearrangement and symbolic manipulation. Weakness here can slow progress across many AA SL topics.',
+        'Number, fractions & indices':'Fractions, indices, scientific notation, surds and numerical fluency.',
+        'Equations & inequalities':'Linear equations, simultaneous equations, inequalities and solution sets.',
+        'Functions & graphs':'Function notation, domain, transformations and graphical thinking.',
+        'Coordinate geometry':'Gradient, equations of lines, perpendicular relationships and midpoint.',
+        'Trigonometry':'Right-triangle trigonometry and ratio interpretation.',
+        'Probability & sets':'Set counting and basic probability language.',
+        'Notation & sets':'Interval notation and mathematical language.',
+        'Reasoning & modelling':'Choosing and connecting methods in a less-direct context.',
+      };
+      const state = {
+        index: 0,
+        answers: {
+        },
+        confidence: {
+        },
+        working: {
+        },
+        flagged: {
+        },
+        startedAt: null,
+        timerId: null,
+        remaining: 3600,
+        submitted: false,
+        results: null,
+        bridgeSubmitted: false,
+        reviewMode: null,
+        flaggedQueue: [],
+        flaggedPos: 0,
+        questionTimes: {
+        },
+        activeQuestionId: null,
+        activeQuestionStartedAt: null
+      };
+      const el = id => document.getElementById(id);
+      const startPanel = el('startPanel');
+      const testPanel = el('testPanel');
+      const reviewPanel = el('reviewPanel');
+      const resultsPanel = el('resultsPanel');
+      function escapeHtml(s) {
+        return String(s ?? '').replace(/[&<>'"]/g, c => ( {
+          '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+        }
+        [c]));
+      }
+      function parseScalar(value) {
+        if (value == null) return NaN;
+        let s = String(value).trim().replace(/−/g,'-').replace(/\s+/g,'');
+        if (!s) return NaN;
+        const fraction = s.match(/^([+-]?(?:\d+(?:\.\d+)?|\.\d+))\/([+-]?(?:\d+(?:\.\d+)?|\.\d+))$/);
+        if (fraction) {
+          const den = Number(fraction[2]);
+          return den === 0 ? NaN : Number(fraction[1]) / den;
+        }
+        return Number(s);
+      }
+      function parseList(value) {
+        return String(value ?? '').replace(/[()\[\]]/g,'').split(/[,;]/).map(parseScalar).filter(Number.isFinite);
+      }
+      function approx(a,b,tol=1e-8) {
+        return Number.isFinite(a) && Number.isFinite(b) && Math.abs(a-b) <= tol;
+      }
+      function isCorrect(q, raw) {
+        if (raw == null || raw === '') return false;
+        if (q.type === 'mcq') return Number(raw) === q.correct;
+        if (q.type === 'number') return approx(parseScalar(raw), q.correct, q.tolerance ?? 1e-7);
+        if (q.type === 'pair') {
+          const vals = parseList(raw);
+          return vals.length === 2 && approx(vals[0], q.correct[0]) && approx(vals[1], q.correct[1]);
+        }
+        if (q.type === 'roots') {
+          const vals = parseList(raw).sort((a,b)=>a-b);
+          const cor = [...q.correct].sort((a,b)=>a-b);
+          return vals.length === 2 && approx(vals[0], cor[0]) && approx(vals[1], cor[1]);
+        }
+        return false;
+      }
+      function displayCorrect(q) {
+        if (q.type === 'mcq') return q.options[q.correct];
+        if (q.type === 'number') return String(q.correct);
+        if (q.type === 'pair') return `(${q.correct[0]}, ${q.correct[1]})`;
+        if (q.type === 'roots') return q.correct.join(', ');
+        return '';
+      }
+      function displayAnswer(q, raw) {
+        if (raw == null || raw === '') return '-';
+        if (q.type === 'mcq') return q.options[Number(raw)] ?? '-';
+        return String(raw);
+      }
+      function formatDuration(seconds) {
+        const total = Math.max(0, Math.round(Number(seconds) || 0));
+        if (total < 60) return `${total}s`;
+        const m = Math.floor(total / 60);
+        const s = total % 60;
+        return `${m}m ${String(s).padStart(2,'0')}s`;
+      }
+      function commitQuestionTiming() {
+        if (!state.activeQuestionId || state.activeQuestionStartedAt == null) return;
+        const elapsed = Math.max(0, (performance.now() - state.activeQuestionStartedAt) / 1000);
+        state.questionTimes[state.activeQuestionId] = (state.questionTimes[state.activeQuestionId] || 0) + elapsed;
+        state.activeQuestionStartedAt = null;
+      }
+      function beginQuestionTiming(qid) {
+        state.activeQuestionId = qid;
+        state.activeQuestionStartedAt = document.hidden ? null : performance.now();
+      }
+      function resumeQuestionTiming() {
+        if (!state.activeQuestionId || state.activeQuestionStartedAt != null || document.hidden) return;
+        state.activeQuestionStartedAt = performance.now();
+      }
+      function startTimer() {
+        clearInterval(state.timerId);
+        state.timerId = setInterval(() => {
+          state.remaining = Math.max(0, state.remaining - 1);
+          renderTimer();
+          if (state.remaining === 0) clearInterval(state.timerId);
+        },
+        1000);
+        renderTimer();
+      }
+      function renderTimer() {
+        const t = el('timer');
+        if (state.remaining <= 0) {
+          t.textContent = 'Time up';
+          t.className = 'timer over';
+          return;
+        }
+        const m = Math.floor(state.remaining/60);
+        const s = state.remaining % 60;
+        t.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        t.className = 'timer' + (state.remaining <= 600 ? ' warn' : '');
+      }
+      function startTest() {
+        state.index = 0;
+        state.answers = {
+        };
+        state.confidence = {
+        };
+        state.working = {
+        };
+        state.flagged = {
+        };
+        state.remaining = 3600;
+        state.submitted = false;
+        state.reviewMode = null;
+        state.flaggedQueue = [];
+        state.flaggedPos = 0;
+        state.questionTimes = {
+        };
+        state.activeQuestionId = null;
+        state.activeQuestionStartedAt = null;
+        state.startedAt = new Date();
+        startPanel.classList.add('hidden');
+        resultsPanel.classList.add('hidden');
+        reviewPanel.classList.add('hidden');
+        testPanel.classList.remove('hidden');
+        startTimer();
+        renderQuestion();
+        window.scrollTo( {
+          top:0, behavior:'smooth'
+        });
+      }
+      function saveCurrent() {
+        commitQuestionTiming();
+        const q = questions[state.index];
+        if (q.type === 'mcq') {
+          const checked = testPanel.querySelector('input[name="answer"]:checked');
+          state.answers[q.id] = checked ? checked.value : '';
+        } else
+        {
+          state.answers[q.id] = el('textAnswer')?.value.trim() ?? '';
+        }
+        const c = testPanel.querySelector('input[name="confidence"]:checked');
+        state.confidence[q.id] = c ? c.value : '';
+        state.working[q.id] = el('working').value.trim();
+        state.flagged[q.id] = el('flagBox').checked;
+      }
+      function renderQuestion() {
+        const q = questions[state.index];
+        const done = Object.values(state.answers).filter(v => String(v).trim() !== '').length;
+        const pct = (state.index / questions.length) * 100;
+        el('progressFill').style.width = `${pct}%`;
+        el('progressText').textContent = `${done} answered · question ${state.index + 1} of ${questions.length}`;
+        el('sectionLabel').textContent = q.section;
+        el('questionNumber').textContent = `${q.id} · ${q.tags.join(' · ')}`;
+        el('marksPill').textContent = `${q.marks} mark${q.marks === 1 ? '' : 's'}`;
+        el('calcPill').textContent = q.calc ? 'Calculator allowed' : 'No calculator';
+        el('questionPrompt').innerHTML = q.prompt;
+        el('formatHelp').textContent = q.help || '';
+        const area = el('answerArea');
+        const saved = state.answers[q.id] ?? '';
+        if (q.type === 'mcq') {
+          area.innerHTML = `<fieldset style="border:0;padding:0;margin:0"><legend class="block">Choose one answer</legend><div class="options">${q.options.map((opt,i)=>`<label class="option"><input type="radio" name="answer" value="${i}" ${String(saved)===String(i)?'checked':''}><span>${escapeHtml(opt)}</span></label>`).join('')}</div></fieldset>`;
+        } else
+        {
+          area.innerHTML = `<label class="block" for="textAnswer">Final answer</label><input id="textAnswer" type="text" inputmode="text" autocomplete="off" value="${escapeHtml(saved)}" placeholder="Enter your final answer">`;
+        }
+        testPanel.querySelectorAll('input[name="confidence"]').forEach(r => {
+          r.checked = r.value === (state.confidence[q.id] ?? '');
+        });
+        el('working').value = state.working[q.id] ?? '';
+        el('flagBox').checked = !!state.flagged[q.id];
+        const banner = el('flagReviewBanner');
+        if (state.reviewMode === 'flagged') {
+          const total = state.flaggedQueue.length;
+          const pos = state.flaggedPos + 1;
+          banner.classList.remove('hidden');
+          banner.innerHTML = `<strong>🚩 Reviewing flagged questions:</strong> ${pos} of ${total}. Use the buttons below to move only through the questions you flagged. You can untick the flag if you are now satisfied with your answer.`;
+          el('backBtn').disabled = state.flaggedPos === 0;
+          el('backBtn').textContent = 'Previous flagged';
+          el('nextBtn').textContent = state.flaggedPos === total - 1 ? 'Back to review' : 'Next flagged';
+        } else
+        {
+          banner.classList.add('hidden');
+          banner.textContent = '';
+          el('backBtn').disabled = state.index === 0;
+          el('backBtn').textContent = 'Back';
+          el('nextBtn').textContent = state.index === questions.length - 1 ? 'Review & submit' : 'Next';
+        }
+        beginQuestionTiming(q.id);
+        renderTimer();
+      }
+      function nextQuestion() {
+        saveCurrent();
+        if (state.reviewMode === 'flagged') {
+          if (state.flaggedPos >= state.flaggedQueue.length - 1) return showReview();
+          state.flaggedPos++;
+          state.index = state.flaggedQueue[state.flaggedPos];
+          renderQuestion();
+          testPanel.scrollIntoView( {
+            behavior:'smooth', block:'start'
+          });
+          return;
+        }
+        if (state.index >= questions.length - 1) return showReview();
+        state.index++;
+        renderQuestion();
+        testPanel.scrollIntoView( {
+          behavior:'smooth', block:'start'
+        });
+      }
+      function prevQuestion() {
+        saveCurrent();
+        if (state.reviewMode === 'flagged') {
+          if (state.flaggedPos > 0) {
+            state.flaggedPos--;
+            state.index = state.flaggedQueue[state.flaggedPos];
+          }
+          renderQuestion();
+          testPanel.scrollIntoView( {
+            behavior:'smooth', block:'start'
+          });
+          return;
+        }
+        if (state.index > 0) state.index--;
+        renderQuestion();
+        testPanel.scrollIntoView( {
+          behavior:'smooth', block:'start'
+        });
+      }
+      function showReview() {
+        saveCurrent();
+        state.reviewMode = null;
+        state.flaggedQueue = [];
+        state.flaggedPos = 0;
+        testPanel.classList.add('hidden');
+        reviewPanel.classList.remove('hidden');
+        const unanswered = questions.filter(q => !String(state.answers[q.id] ?? '').trim());
+        const noConfidence = questions.filter(q => !state.confidence[q.id]);
+        const flagged = questions.filter(q => state.flagged[q.id]);
+        el('reviewSummary').innerHTML = `<strong>${questions.length - unanswered.length}/${questions.length}</strong> answered · <strong>${questions.length - noConfidence.length}/${questions.length}</strong> confidence ratings completed · <strong>🚩 ${flagged.length}</strong> flagged for review.`;
+        el('reviewGrid').innerHTML = questions.map((q,i) => {
+          const answered = String(state.answers[q.id] ?? '').trim();
+          const isFlagged = !!state.flagged[q.id];
+          const classes = ['review-item'];
+          if (!answered) classes.push('bad');
+          if (isFlagged) classes.push('flag');
+          return `<button type="button" class="${classes.join(' ')}" data-index="${i}" aria-label="Go to ${q.id}${isFlagged ? ', flagged for review' : ''}"><strong>${q.id}</strong><br><span class="small">${answered ? 'answered' : 'blank'}</span>${isFlagged ? '<br><span class="flag-badge">🚩 Flagged</span>' : ''}</button>`;
+        })
+        .join('');
+        el('reviewGrid').querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+          state.reviewMode = null;
+          state.index = Number(b.dataset.index);
+          reviewPanel.classList.add('hidden');
+          testPanel.classList.remove('hidden');
+          renderQuestion();
+        }));
+        el('reviewFlaggedBtn').disabled = flagged.length === 0;
+        el('firstUnansweredBtn').disabled = unanswered.length === 0;
+        reviewPanel.scrollIntoView( {
+          behavior:'smooth', block:'start'
+        });
+      }
+      function returnToQuestions() {
+        state.reviewMode = null;
+        state.flaggedQueue = [];
+        state.flaggedPos = 0;
+        reviewPanel.classList.add('hidden');
+        testPanel.classList.remove('hidden');
+        renderQuestion();
+      }
+      function reviewFlaggedQuestions() {
+        const queue = questions.map((q,i) => state.flagged[q.id] ? i : -1).filter(i => i >= 0);
+        if (!queue.length) return;
+        state.reviewMode = 'flagged';
+        state.flaggedQueue = queue;
+        state.flaggedPos = 0;
+        state.index = queue[0];
+        reviewPanel.classList.add('hidden');
+        testPanel.classList.remove('hidden');
+        renderQuestion();
+        testPanel.scrollIntoView( {
+          behavior:'smooth', block:'start'
+        });
+      }
+      function goFirstUnanswered() {
+        const i = questions.findIndex(q => !String(state.answers[q.id] ?? '').trim());
+        if (i < 0) return;
+        state.reviewMode = null;
+        state.flaggedQueue = [];
+        state.flaggedPos = 0;
+        state.index = i;
+        returnToQuestions();
+      }
+      function readinessBand(pct) {
+        if (pct >= 85) return ['Strong AA SL readiness','Core prerequisites look strong. Tutoring and revision can focus on fluency, problem solving and early AA SL bridge material.'];
+        if (pct >= 70) return ['Generally ready, with gaps to patch','The foundation is broadly suitable for AA SL, but one or two areas should be consolidated before the DP1 course pace accelerates.'];
+        if (pct >= 55) return ['Notable prerequisite gaps','Targeted work on the weakest core skills is recommended before or during the opening weeks of AA SL.'];
+        return ['Foundation rebuilding recommended','Several prerequisite areas need attention. Prioritise number skills, algebraic fluency, equations and functions before the AA SL course pace increases.'];
+      }
+      function skillStatus(pct) {
+        if (pct >= 85) return ['Secure','status-secure'];
+        if (pct >= 70) return ['Consolidate','status-consolidate'];
+        return ['Priority gap','status-priority'];
+      }
+      function computeResults() {
+        let earned = 0, max = 0;
+        const skillMap = {
+        };
+        const details = [];
+        const highWrong = [];
+        for (const q of questions) {
+          const raw = state.answers[q.id] ?? '';
+          const correct = isCorrect(q, raw);
+          const timeSec = Math.round(state.questionTimes[q.id] || 0);
+          const conf = state.confidence[q.id] || '';
+          max += q.marks;
+          if (correct) earned += q.marks;
+          details.push( {
+            q, raw, correct, conf, work: state.working[q.id] || '', timeSec
+          });
+          if (!correct && state.confidence[q.id] === 'high') highWrong.push(q.id);
+          for (const tag of q.tags) {
+            if (!skillMap[tag]) skillMap[tag] = {
+              earned:0,max:0,questions:0
+            };
+            skillMap[tag].max += q.marks;
+            skillMap[tag].questions++;
+            if (correct) skillMap[tag].earned += q.marks;
+          }
+        }
+        const pct = max ? Math.round(1000*earned/max)/10 : 0;
+        return {
+          earned,max,pct,skillMap,details,highWrong
+        };
+      }
+      function submitDiagnostic() {
+        clearInterval(state.timerId);
+        state.submitted = true;
+        state.results = computeResults();
+        reviewPanel.classList.add('hidden');
+        testPanel.classList.add('hidden');
+        resultsPanel.classList.remove('hidden');
+        renderResults();
+        resultsPanel.scrollIntoView( {
+          behavior:'smooth', block:'start'
+        });
+      }
+      function renderResults() {
+        const r = state.results;
+        const [band, explanation] = readinessBand(r.pct);
+        el('scorePct').textContent = `${r.pct}%`;
+        el('scoreRing').style.setProperty('--pct', `${Math.max(0,Math.min(100,r.pct))}%`);
+        el('readinessBand').textContent = band;
+        el('scoreLine').innerHTML = `<strong>${r.earned}/${r.max}</strong> core marks`;
+        el('bandExplanation').textContent = explanation;
+        if (r.highWrong.length) {
+          el('misconceptionCallout').innerHTML = `<div class="callout-bad"><strong>High-confidence errors:</strong> ${r.highWrong.join(', ')}. These are especially useful to discuss with your teacher or tutor because they may indicate a misconception rather than simple uncertainty.</div>`;
+        } else
+        {
+          el('misconceptionCallout').innerHTML = `<div class="callout-good"><strong>No high-confidence errors detected.</strong> This does not rule out gaps, but there is no obvious “wrong” signal in this attempt.</div>`;
+        }
+        const skillRows = Object.entries(r.skillMap).map(([name,s]) => ( {
+          name, ...s, pct: s.max ? Math.round(100*s.earned/s.max) : 0
+        }))
+        .sort((a,b)=>a.pct-b.pct || b.max-a.max);
+        el('skillList').innerHTML = skillRows.map(s => {
+          const [status,cls] = skillStatus(s.pct);
+          return `<div class="skill"><div class="skill-head"><div><strong>${escapeHtml(s.name)}</strong><div class="small muted">${escapeHtml(skillDescriptions[s.name] || '')}</div></div><div style="text-align:right"><strong>${s.pct}%</strong><div class="small ${cls}">${status}</div></div></div><div class="skill-track"><div class="skill-fill" style="width:${s.pct}%"></div></div></div>`;
+        })
+        .join('');
+        const priorities = skillRows.filter(s => s.pct < 85).slice(0,4);
+        if (!priorities.length) {
+          el('focusList').innerHTML = `<div class="callout-good"><strong>Core focus:</strong> maintain fluency and move toward AA SL bridge work: function transformations, sequences, logarithms, quadratic techniques and increasingly unfamiliar problem solving.</div>`;
+        } else
+        {
+          el('focusList').innerHTML = priorities.map((s,i) => `<div class="${s.pct < 70 ? 'callout-bad' : 'callout-warn'}"><strong>${i+1}. ${escapeHtml(s.name)}</strong> - ${s.pct}% on this diagnostic. ${escapeHtml(skillDescriptions[s.name] || 'Consolidate this area with targeted practice and a short re-check.')}</div>`).join('');
+        }
+        el('detailsTable').innerHTML = `<thead><tr><th>Q</th><th>Result</th><th>Your answer</th><th>Expected</th><th>Confidence</th><th>Approx. time</th><th>Working</th></tr></thead><tbody>${r.details.map(d => `<tr><td><strong>${d.q.id}</strong></td><td class="${d.correct?'correct':'incorrect'}">${d.correct?'Correct':'Incorrect'}</td><td>${escapeHtml(displayAnswer(d.q,d.raw))}</td><td>${escapeHtml(displayCorrect(d.q))}</td><td>${escapeHtml(d.conf || '-')}</td><td>${formatDuration(d.timeSec)}</td><td>${escapeHtml(d.work || '-')}</td></tr>`).join('')}</tbody>`;
+        const student = el('studentName').value.trim() || 'Student';
+        const classNote = el('extraCode').value.trim();
+        const report = buildReport(student, classNote, r, skillRows, band);
+        el('reportText').value = report;
+      }
+      function buildReport(student, classNote, r, skillRows, band) {
+        const priorities = skillRows.filter(s=>s.pct<85).slice(0,4);
+        const lines = [
+        'IB Mathematics AA SL Readiness Diagnostic',
+        `Student: ${student}`,
+        classNote ? `Extra notes: ${classNote}` : '',
+        `Core score: ${r.earned}/${r.max} (${r.pct}%)`,
+        `Readiness band: ${band}`,
+        '',
+        'Skill profile:'
+        ].filter(Boolean);
+        skillRows.forEach(s => lines.push(`- ${s.name}: ${s.pct}% (${skillStatus(s.pct)[0]})`));
+        lines.push('', `High-confidence incorrect questions: ${r.highWrong.length ? r.highWrong.join(', ') : 'none'}`);
+        lines.push('', 'Suggested priorities:');
+        if (priorities.length) priorities.forEach((s,i)=>lines.push(`${i+1}. ${s.name} (${s.pct}%)`));
+        else lines.push('1. Maintain fluency and move to AA SL bridge material / unfamiliar problem solving.');
+        lines.push('', 'Question detail:');
+        r.details.forEach(d => lines.push(`${d.q.id}: ${d.correct ? 'correct' : 'incorrect'} | answer: ${displayAnswer(d.q,d.raw)} | expected: ${displayCorrect(d.q)} | confidence: ${d.conf || 'not given'}`));
+        lines.push('', 'Note: this diagnostic is not an official IB examination and not an IB grade prediction. Use it and discuss its results with a tutor or teacher.');
+        return lines.join('\n');
+      }
+      function downloadReport() {
+        const text = el('reportText').value;
+        const blob = new Blob([text], {
+          type:'text/plain;charset=utf-8'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const safeName = (el('studentName').value.trim() || 'student').replace(/[^a-z0-9_-]+/gi,'_');
+        a.href = url;
+        a.download = `AA_SL_readiness_${safeName}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url), 1000);
+      }
+      function renderBridge() {
+        const area = el('bridgeArea');
+        area.classList.remove('hidden');
+        el('showBridgeBtn').classList.add('hidden');
+        area.innerHTML = bridgeQuestions.map(q => {
+          const answer = q.type === 'mcq'
+          ? `<div class="options">${q.options.map((o,i)=>`<label class="option"><input type="radio" name="bridge_${q.id}" value="${i}"><span>${escapeHtml(o)}</span></label>`).join('')}</div>`
+          : `<input type="text" id="bridge_${q.id}" placeholder="Final answer">`;
+          return `<div class="bridge-q"><div class="small muted">${q.id} · ${escapeHtml(q.skill)}</div><div style="font-weight:700;margin:6px 0 10px">${escapeHtml(q.prompt)}</div>${answer}</div>`;
+        })
+        .join('') + `<button class="btn btn-primary" id="scoreBridgeBtn" type="button">Score bridge probe</button><div id="bridgeResult" style="margin-top:12px"></div>`;
+        el('scoreBridgeBtn').addEventListener('click', scoreBridge);
+      }
+      function scoreBridge() {
+        let correctCount = 0;
+        const misses = [];
+        bridgeQuestions.forEach(q => {
+          let raw = '';
+          if (q.type === 'mcq') raw = document.querySelector(`input[name="bridge_${q.id}"]:checked`)?.value ?? '';
+          else raw = el(`bridge_${q.id}`)?.value.trim() ?? '';
+          if (isCorrect(q,raw)) correctCount++; else misses.push(q.skill);
+        });
+        const uniqueMisses = [...new Set(misses)];
+        const msg = correctCount >= 4
+        ? 'Strong prior exposure. These topics can probably be treated as bridge/review rather than first-time learning.'
+        : correctCount >= 2
+        ? 'Mixed prior exposure. Use the missed areas as optional bridge work, not as evidence of failure on the core prerequisite diagnostic.'
+        : 'Limited prior exposure detected. That is acceptable: these are optional bridge topics, not part of the 50-mark readiness score. It might be useful to review them if extra time is available.';
+        el('bridgeResult').innerHTML = `<div class="${correctCount>=4?'callout-good':correctCount>=2?'callout-warn':'callout-bad'}"><strong>${correctCount}/5 correct.</strong> ${msg}${uniqueMisses.length ? `<br><span class="small">Review candidates: ${escapeHtml(uniqueMisses.join(', '))}.</span>` : ''}</div>`;
+      }
+      function restart() {
+        commitQuestionTiming();
+        state.activeQuestionId = null;
+        state.activeQuestionStartedAt = null;
+        clearInterval(state.timerId);
+        resultsPanel.classList.add('hidden');
+        reviewPanel.classList.add('hidden');
+        testPanel.classList.add('hidden');
+        startPanel.classList.remove('hidden');
+        el('studentName').focus();
+        window.scrollTo( {
+          top:0, behavior:'smooth'
+        });
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (state.submitted || testPanel.classList.contains('hidden')) return;
+        if (document.hidden) commitQuestionTiming();
+        else resumeQuestionTiming();
+      });
+      el('startBtn').addEventListener('click', startTest);
+      el('nextBtn').addEventListener('click', nextQuestion);
+      el('backBtn').addEventListener('click', prevQuestion);
+      el('returnBtn').addEventListener('click', returnToQuestions);
+      el('reviewFlaggedBtn').addEventListener('click', reviewFlaggedQuestions);
+      el('firstUnansweredBtn').addEventListener('click', goFirstUnanswered);
+      el('submitBtn').addEventListener('click', submitDiagnostic);
+      el('downloadReportBtn').addEventListener('click', downloadReport);
+      el('showBridgeBtn').addEventListener('click', renderBridge);
+      el('restartBtn').addEventListener('click', restart);
+    })
+    ();
+  </script>
+ </body>
+</html>
+
