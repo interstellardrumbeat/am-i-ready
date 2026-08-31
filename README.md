@@ -4,6 +4,8 @@
 
 The aim is not to predict a grade. Instead, each diagnostic is intended to identify strengths, gaps, misconceptions, and areas that may be worth reviewing with a teacher or tutor before the next course begins.
 
+[APP](https://interstellardrumbeat.github.io/am-i-ready/)
+
 ## Available diagnostics
 
 | Transition | Diagnostic | Audience | Approx. time |
