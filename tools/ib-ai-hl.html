@@ -461,6 +461,48 @@
       margin-top: 12px;
     }
 
+   .report-card {
+  margin: 22px 0;
+  padding: 18px;
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  background: var(--accent-soft);
+}
+
+.report-card h3 {
+  margin: 0 0 6px;
+  color: var(--text);
+}
+
+.report-card p {
+  margin: 0;
+}
+
+.report-download {
+  margin-top: 14px;
+}
+
+.report-download .btn {
+  width: 100%;
+  min-height: 52px;
+  font-size: 1.05rem;
+}
+
+.report-preview {
+  margin-top: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.report-preview summary {
+  font-size: .92rem;
+}
+
+.report-preview textarea {
+  margin-top: 10px;
+  min-height: 180px;
+}
+
     .callout-good {
       background: var(--good-soft);
     }
@@ -738,11 +780,38 @@
       </p>
      </div>
     </div>
-    <div id="misconceptionCallout">
-    </div>
-    <h3>
-     Skill profile
-    </h3>
+   <div id="misconceptionCallout">
+</div>
+
+<section class="report-card" aria-labelledby="reportHeading">
+  <h3 id="reportHeading">
+    Save your diagnostic report
+  </h3>
+
+  <p>
+    Download your complete results so you can keep them or share them with a teacher or tutor.
+  </p>
+
+  <div class="report-download">
+    <button class="btn btn-primary" id="downloadReportBtn" type="button">
+      ⬇ Download full diagnostic report
+    </button>
+  </div>
+
+  <details class="report-preview">
+    <summary>
+      View / copy report text
+    </summary>
+    <p class="small muted">
+      You can also select and copy the full report below.
+    </p>
+    <textarea id="reportText" readonly=""></textarea>
+  </details>
+</section>
+
+<h3>
+ Skill profile
+</h3>
     <div class="skill-list" id="skillList">
     </div>
     <h3>
@@ -757,20 +826,6 @@
      <div class="details-table-wrap">
       <table id="detailsTable">
       </table>
-     </div>
-    </details>
-    <details>
-     <summary>
-      Report / shareable summary
-     </summary>
-     <p class="small muted">
-      You can select and copy this text, or download it as a .txt file.
-     </p>
-     <textarea id="reportText" readonly=""></textarea>
-     <div class="actions" style="justify-content:flex-start">
-      <button class="btn btn-secondary" id="downloadReportBtn" type="button">
-       Download report
-      </button>
      </div>
     </details>
     <div class="bridge">
